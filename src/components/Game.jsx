@@ -2,18 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { loadDetails } from "../actions/detailsAction";
+import { resizeImage } from "../utils/resizeImage";
 
 const Game = ({ name, released, image, id }) => {
+  const imageSize = 640;
   const dispatch = useDispatch();
   const loadDetailsHandler = (id) => {
     dispatch(loadDetails(id));
+    document.body.style.overflow = "hidden";
   };
   return (
-    <StyledGame onClick={() => loadDetailsHandler(id)}>
-      <h1>{name}</h1>
-      <p>{released}</p>
-      <img src={image} alt={name} />
+    <StyledGame layoutId={id} onClick={() => loadDetailsHandler(id)}>
+      <Link to={`/game/${id}`}>
+        <h1>{name}</h1>
+        <p>{released}</p>
+        <img src={resizeImage(image, imageSize)} alt={name} />
+      </Link>
     </StyledGame>
   );
 };

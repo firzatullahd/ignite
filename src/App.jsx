@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Home from "./pages/Home";
 
@@ -6,7 +7,9 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Home />
+      <Route path={["/game/:id", "/"]}>
+        <Home />
+      </Route>
     </div>
   );
 }
@@ -42,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     font-size: 1.3rem;
     color: #333;
-    padding: 1.5rem;
+    padding: 1.5rem 0rem;
   }
   p {
     font-size: 1.2rem;
@@ -52,6 +55,9 @@ const GlobalStyle = createGlobalStyle`
   a{
     text-decoration: none;
     color: #696969;
+  }
+  img {
+    display: block;
   }
 `;
 

@@ -1,46 +1,66 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import { resizeImage } from "../utils/resizeImage";
 
-const GameDetails = () => {
+const GameDetails = ({ pathId }) => {
+  const history = useHistory();
+
   const { details: game, screenshots } = useSelector(
     (state) => state.selectedGame
   );
+
+  const exitDetailHandler = (e) => {
+    const element = e.target;
+    if (element.classList.contains("overlay")) {
+      document.body.style.overflow = "auto";
+      history.push("/");
+    }
+  };
+
   return (
-    <StyledCard>
-      <StyledDetail>
-        <div className="stats">
-          <div className="rating">
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
-          </div>
-          <div className="info">
-            <h3>Platforms</h3>
-            <div className="platforms">
-              {game.platforms.map((obj) => (
-                <h3 key={obj.platform.id}>{obj.platform.name}</h3>
+    <>
+      {!game.isLoading && (
+        <StyledCard className="overlay" onClick={exitDetailHandler}>
+          <StyledDetail layoutId={pathId}>
+            <StyledStats>
+              <div className="rating">
+                <h3>{game.name}</h3>
+                <p>Rating: {game.rating}</p>
+              </div>
+              <StyledInfo>
+                <h3>Platforms</h3>
+                <StyledPlatforms>
+                  {game.platforms.map((obj) => (
+                    <h3 key={obj.platform.id}>{obj.platform.name}</h3>
+                  ))}
+                </StyledPlatforms>
+              </StyledInfo>
+            </StyledStats>
+            <StyledMedia>
+              <img
+                src={resizeImage(game.background_image, 1280)}
+                alt={game.name}
+              />
+            </StyledMedia>
+            <StyledDescription>
+              <p>{game.description_raw}</p>
+            </StyledDescription>
+            <div className="gallery">
+              {screenshots.map((screenshot) => (
+                <img
+                  key={screenshot.id}
+                  src={resizeImage(screenshot.image, 1280)}
+                  alt={screenshot.id}
+                />
               ))}
             </div>
-          </div>
-        </div>
-        <div className="media">
-          <img src={game.background_image} alt={game.name} />
-        </div>
-        <div className="description">
-          <p>{game.description_raw}</p>
-        </div>
-        <div className="gallery">
-          {screenshots.map((screenshot) => (
-            <img
-              key={screenshot.id}
-              src={screenshot.image}
-              alt={screenshot.id}
-            />
-          ))}
-        </div>
-      </StyledDetail>
-    </StyledCard>
+          </StyledDetail>
+        </StyledCard>
+      )}
+    </>
   );
 };
 
@@ -66,7 +86,7 @@ const StyledCard = styled(motion.div)`
 const StyledDetail = styled(motion.div)`
   width: 80%;
   border-radius: 1rem;
-  padding: 2rem 20rem;
+  padding: 2rem 5rem;
   background: white;
   position: absolute;
   left: 10%;
@@ -74,6 +94,35 @@ const StyledDetail = styled(motion.div)`
   img {
     width: 100%;
   }
+`;
+
+const StyledStats = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const StyledInfo = styled(motion.div)`
+  text-align: center;
+`;
+
+const StyledPlatforms = styled(motion.div)`
+  display: flex;
+  justify-content: space-evenly;
+  img {
+    margin-left: 3rem;
+  }
+`;
+
+const StyledMedia = styled(motion.div)`
+  margin-top: 5rem;
+  img {
+    width: 100%;
+  }
+`;
+
+const StyledDescription = styled(motion.div)`
+  margin: 5rem 0rem;
 `;
 
 export default GameDetails;

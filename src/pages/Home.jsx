@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { loadGames } from "../actions/gamesAction";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import Game from "../components/Game";
 import GameDetails from "../components/GameDetails";
 
 function Home() {
+  const location = useLocation();
+  const pathId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadGames());
@@ -18,49 +21,53 @@ function Home() {
   } = useSelector((state) => state.games);
   return (
     <StyledGameList>
-      <GameDetails />
-      <h2>Upcoming Games</h2>
-      <StyledGames>
-        {upcomingGames.map((game) =>
-          game.background_image == null ? null : (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          )
-        )}
-      </StyledGames>
-      <h2>Popular Games</h2>
-      <StyledGames>
-        {popularGames.map((game) =>
-          game.background_image == null ? null : (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          )
-        )}
-      </StyledGames>
-      <h2>New Games</h2>
-      <StyledGames>
-        {newGames.map((game) =>
-          game.background_image == null ? null : (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          )
-        )}
-      </StyledGames>
+      <AnimateSharedLayout type="crossfade">
+        <AnimatePresence>
+          {pathId && <GameDetails pathId={pathId} />}
+        </AnimatePresence>
+        <h2>Upcoming Games</h2>
+        <StyledGames>
+          {upcomingGames.map((game) =>
+            game.background_image == null ? null : (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            )
+          )}
+        </StyledGames>
+        <h2>Popular Games</h2>
+        <StyledGames>
+          {popularGames.map((game) =>
+            game.background_image == null ? null : (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            )
+          )}
+        </StyledGames>
+        <h2>New Games</h2>
+        <StyledGames>
+          {newGames.map((game) =>
+            game.background_image == null ? null : (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            )
+          )}
+        </StyledGames>
+      </AnimateSharedLayout>
     </StyledGameList>
   );
 }

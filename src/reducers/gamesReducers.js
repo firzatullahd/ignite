@@ -1,11 +1,11 @@
-const initState = {
+const initialState = {
     popular: [],
     new: [],
     upcoming: [],
     searched: []
 }
 
-const gamesReducer = (state = initState, action) => {
+const gamesReducer = (state = initialState, action) => {
     switch (action.type) {
         case "FETCH_GAMES":
             return {

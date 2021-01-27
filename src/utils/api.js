@@ -1,4 +1,4 @@
-import { currentDate, lastYearDate, nextYearDate } from './getDate';
+import { currentDate, lastYearDate, nextYearDate } from './date';
 
 //BASE URL
 const baseUrl = "https://api.rawg.io/api";
