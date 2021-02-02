@@ -1,11 +1,13 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import Nav from "./components/Nav";
 import Home from "./pages/Home";
 
 function App() {
   return (
     <div className="App">
+      <Nav />
       <GlobalStyle />
       <Route path={["/game/:id", "/"]}>
         <Home />

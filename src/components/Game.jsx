@@ -7,18 +7,22 @@ import { loadDetails } from "../actions/detailsAction";
 import { resizeImage } from "../utils/resizeImage";
 
 const Game = ({ name, released, image, id }) => {
-  const imageSize = 640;
+  id = id.toString();
   const dispatch = useDispatch();
-  const loadDetailsHandler = (id) => {
+  const loadDetailsHandler = () => {
     dispatch(loadDetails(id));
     document.body.style.overflow = "hidden";
   };
   return (
-    <StyledGame layoutId={id} onClick={() => loadDetailsHandler(id)}>
+    <StyledGame layoutId={id} onClick={loadDetailsHandler}>
       <Link to={`/game/${id}`}>
-        <h1>{name}</h1>
+        <motion.h3 layoutId={`title ${id}`}>{name}</motion.h3>
         <p>{released}</p>
-        <img src={resizeImage(image, imageSize)} alt={name} />
+        <motion.img
+          layoutId={`image ${id}`}
+          src={resizeImage(image, 640)}
+          alt={name}
+        />
       </Link>
     </StyledGame>
   );
