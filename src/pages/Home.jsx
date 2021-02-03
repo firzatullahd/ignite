@@ -18,6 +18,7 @@ function Home() {
     popular: popularGames,
     upcoming: upcomingGames,
     new: newGames,
+    searched: searchedGames,
   } = useSelector((state) => state.games);
   return (
     <StyledGameList>
@@ -25,6 +26,26 @@ function Home() {
         <AnimatePresence>
           {pathId && <GameDetails pathId={pathId} />}
         </AnimatePresence>
+        {searchedGames.length ? (
+          <>
+            <h2>Searched Result</h2>
+            <StyledGames>
+              {searchedGames.map((game) =>
+                game.background_image == null ? null : (
+                  <Game
+                    key={game.id}
+                    id={game.id}
+                    name={game.name}
+                    released={game.released}
+                    image={game.background_image}
+                  />
+                )
+              )}
+            </StyledGames>
+          </>
+        ) : (
+          ""
+        )}
         <h2>Upcoming Games</h2>
         <StyledGames>
           {upcomingGames.map((game) =>

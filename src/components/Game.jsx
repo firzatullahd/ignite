@@ -13,11 +13,12 @@ const Game = ({ name, released, image, id }) => {
     dispatch(loadDetails(id));
     document.body.style.overflow = "hidden";
   };
+
   return (
     <StyledGame layoutId={id} onClick={loadDetailsHandler}>
       <Link to={`/game/${id}`}>
         <motion.h3 layoutId={`title ${id}`}>{name}</motion.h3>
-        <p>{released}</p>
+        <p>Release Date: {released}</p>
         <motion.img
           layoutId={`image ${id}`}
           src={resizeImage(image, 640)}

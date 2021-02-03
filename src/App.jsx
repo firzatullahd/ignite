@@ -7,8 +7,8 @@ import Home from "./pages/Home";
 function App() {
   return (
     <div className="App">
-      <Nav />
       <GlobalStyle />
+      <Nav />
       <Route path={["/game/:id", "/"]}>
         <Home />
       </Route>
