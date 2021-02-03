@@ -4,22 +4,25 @@ import { motion } from "framer-motion";
 import logo from "../img/logo.svg";
 import { fetchSearchedGames } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
+import { fadeIn } from "../utils/animations";
 
 const Nav = () => {
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const searchInputHandler = (e) => setSearchInput(e.target.value);
   const submitSearchHandler = (e) => {
-    e.preventDefault();
-    dispatch(fetchSearchedGames(searchInput));
-    setSearchInput("");
+    if (searchInput) {
+      e.preventDefault();
+      dispatch(fetchSearchedGames(searchInput));
+      setSearchInput("");
+    } else e.preventDefault();
   };
   const clearSearch = () =>
     dispatch({
       type: "CLEAR_SEARCHED_GAMES",
     });
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <StyledLogo onClick={clearSearch}>
         <img src={logo} alt="logo"></img>
         <h1>R.A.W.G</h1>
