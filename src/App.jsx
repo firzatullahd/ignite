@@ -37,6 +37,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Montserrat", sans-serif;
     width: 100%;
+    padding-bottom: 5rem;
+    
   }
   h2 {
     font-family: "Abril Fatface", cursive;
@@ -60,6 +62,20 @@ const GlobalStyle = createGlobalStyle`
   }
   img {
     display: block;
+  }
+  @media (max-width: 560px) {
+    body {
+      padding-bottom: 2rem;
+    }
+    p {
+      font-size:0.8rem;
+    }
+    h2 {
+      font-size:2rem;
+    }
+    h3 {
+      font-size:1rem;
+    }
   }
 `;
 

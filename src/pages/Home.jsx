@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import Game from "../components/Game";
 import GameDetails from "../components/GameDetails";
-import { fadeIn, popUp } from "../utils/animations";
+import { fadeIn } from "../utils/animations";
 
 function Home() {
   const location = useLocation();
@@ -99,14 +99,24 @@ const StyledGameList = styled(motion.div)`
   h2 {
     padding: 5rem 0rem;
   }
+  @media (max-width: 560px) {
+    padding: 0rem 1rem;
+    h2 {
+      padding: 2rem 0rem;
+    }
+  }
 `;
 
 const StyledGames = styled(motion.div)`
   min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
+  @media (max-width: 560px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 1rem;
+  }
 `;
 
 export default Home;

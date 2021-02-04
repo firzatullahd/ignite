@@ -65,6 +65,16 @@ const StyledNav = styled(motion.nav)`
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
   }
+  @media (max-width: 560px) {
+    padding: 2rem 0rem;
+    button {
+      padding: 0.5rem 0.25rem;
+    }
+    input {
+      width: 50%;
+      font-size: 1.5rem;
+    }
+  }
 `;
 const StyledLogo = styled(motion.figure)`
   display: flex;

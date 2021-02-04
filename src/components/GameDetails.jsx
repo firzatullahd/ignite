@@ -147,9 +147,14 @@ const StyledDetail = styled(motion.div)`
   position: absolute;
   left: 10%;
   z-index: 10;
-  /* color: black; */
   img {
     width: 100%;
+  }
+  @media (max-width: 560px) {
+    padding: 1rem 1rem;
+    width: 100%;
+    left: 0;
+    border-radius: 0;
   }
 `;
 
@@ -162,6 +167,13 @@ const StyledStats = styled(motion.div)`
     height: 2rem;
     display: inline;
   }
+  @media (max-width: 560px) {
+    img {
+      width: 1rem;
+      height: 1rem;
+      display: inline;
+    }
+  }
 `;
 
 const StyledInfo = styled(motion.div)`
@@ -173,6 +185,11 @@ const StyledPlatforms = styled(motion.div)`
   justify-content: space-evenly;
   img {
     margin-left: 3rem;
+  }
+  @media (max-width: 560px) {
+    img {
+      margin-left: 1rem;
+    }
   }
 `;
 
